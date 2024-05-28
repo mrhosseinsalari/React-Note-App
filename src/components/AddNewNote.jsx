@@ -34,14 +34,14 @@ function AddNewNote() {
           onChange={(e) => setTitle(e.target.value)}
           type="text"
           className="text-field"
-          placeholder="Note title ..."
+          placeholder="Note title"
         />
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           type="text"
           className="text-field"
-          placeholder="Note description ..."
+          placeholder="Note description"
         />
         <button type="submit" className="btn btn--primary">
           Add New Note

@@ -1,10 +1,8 @@
 import "./App.css";
 import { useState } from "react";
-import AddNewNote from "./components/AddNewNote";
-import NotesList from "./components/NotesList";
-import NoteStatus from "./components/NoteStatus";
 import NoteHeader from "./components/NoteHeader";
 import { NotesProvider } from "./context/NotesContext";
+import NoteApp from "./components/NoteApp";
 
 function App() {
   // const [notes, setNotes] = useState([]);
@@ -36,13 +34,7 @@ function App() {
     <NotesProvider>
       <div className="container">
         <NoteHeader sortBy={sortBy} onSort={(e) => setSortBy(e.target.value)} />
-        <div className="note-app">
-          <AddNewNote />
-          <div className="note-container">
-            <NoteStatus />
-            <NotesList sortBy={sortBy} />
-          </div>
-        </div>
+        <NoteApp sortBy={sortBy} />
       </div>
     </NotesProvider>
   );

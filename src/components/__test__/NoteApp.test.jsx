@@ -1,7 +1,6 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "../../test-utils";
 import { expect, test } from "vitest";
 import NoteApp from "../NoteApp";
-import { NotesProvider } from "../../context/NotesContext";
 
 function addNote(notes) {
   const inputTitle = screen.getByPlaceholderText(/Note title/i);
@@ -19,11 +18,7 @@ function addNote(notes) {
 }
 
 test("Note App #1: should input be empty after submit", () => {
-  render(
-    <NotesProvider>
-      <NoteApp sortBy="latest" />
-    </NotesProvider>
-  );
+  render(<NoteApp sortBy="latest" />);
 
   addNote([{ title: "Note one title", description: "Note one description" }]);
   const inputTitle = screen.getByPlaceholderText(/Note title/i);
@@ -31,11 +26,7 @@ test("Note App #1: should input be empty after submit", () => {
 });
 
 test("Note App #2: should add multiple items", () => {
-  render(
-    <NotesProvider>
-      <NoteApp sortBy="latest" />
-    </NotesProvider>
-  );
+  render(<NoteApp sortBy="latest" />);
 
   addNote([
     { title: "Note one title", description: "Note one description" },
@@ -48,11 +39,7 @@ test("Note App #2: should add multiple items", () => {
 });
 
 test("Note App #3: should not have active class when initially rendered", () => {
-  render(
-    <NotesProvider>
-      <NoteApp sortBy="latest" />
-    </NotesProvider>
-  );
+  render(<NoteApp sortBy="latest" />);
 
   addNote([{ title: "Note one title", description: "Note one description" }]);
   const divElement = screen.getByTestId("note-item");
@@ -60,11 +47,7 @@ test("Note App #3: should not have active class when initially rendered", () => 
 });
 
 test("Note App #4: should have active class when item clicked", () => {
-  render(
-    <NotesProvider>
-      <NoteApp sortBy="latest" />
-    </NotesProvider>
-  );
+  render(<NoteApp sortBy="latest" />);
 
   addNote([{ title: "Note one title", description: "Note one description" }]);
 

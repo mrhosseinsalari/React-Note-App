@@ -2,7 +2,12 @@ import { fireEvent, render, screen } from "../../test-utils";
 import { expect, test } from "vitest";
 import NoteApp from "../NoteApp";
 
-function addNote(notes) {
+type TestNotesType = {
+  title: string;
+  description: string;
+}[];
+
+function addNote(notes: TestNotesType) {
   const inputTitle = screen.getByPlaceholderText(/Note title/i);
   const inputDescription = screen.getByPlaceholderText(/Note description/i);
   const button = screen.getByRole("button", { name: /Add New Note/i });
@@ -21,7 +26,9 @@ test("Note App #1: should input be empty after submit", () => {
   render(<NoteApp sortBy="latest" />);
 
   addNote([{ title: "Note one title", description: "Note one description" }]);
-  const inputTitle = screen.getByPlaceholderText(/Note title/i);
+  const inputTitle = screen.getByPlaceholderText(
+    /Note title/i
+  ) as HTMLInputElement;
   expect(inputTitle.value).toBe("");
 });
 

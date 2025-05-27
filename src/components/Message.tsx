@@ -1,4 +1,4 @@
-function Message(props) {
+function Message(props: { children: React.ReactNode }) {
   const { children } = props;
   console.log(props);
 

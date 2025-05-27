@@ -1,6 +1,12 @@
 import { useNotes, useNotesDispatch } from "../context/NotesContext";
+import { Note } from "../types/Note";
+import { SortByType } from "../types/SortBy";
 
-function NotesList({ sortBy }) {
+type NotesListProps = {
+  sortBy: SortByType;
+};
+
+function NotesList({ sortBy }: NotesListProps) {
   const notes = useNotes();
 
   let sortedNotes = notes;
@@ -8,12 +14,14 @@ function NotesList({ sortBy }) {
   switch (sortBy) {
     case "earliest":
       sortedNotes = [...notes].sort(
-        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
       break;
     case "latest":
       sortedNotes = [...notes].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       break;
     case "completed":
@@ -34,14 +42,8 @@ function NotesList({ sortBy }) {
 
 export default NotesList;
 
-function NoteItem({ note }) {
+function NoteItem({ note }: { note: Note }) {
   const dispatch = useNotesDispatch();
-
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
 
   return (
     <div
@@ -61,8 +63,8 @@ function NoteItem({ note }) {
           </button>
           <input
             type="checkbox"
-            name={note.id}
-            id={note.id}
+            name={String(note.id)}
+            id={String(note.id)}
             value={note.id}
             checked={note.completed}
             onChange={(e) => {
@@ -73,7 +75,11 @@ function NoteItem({ note }) {
         </div>
       </div>
       <div className="note-item__footer">
-        {new Date(note.createdAt).toLocaleDateString("en-US", options)}
+        {new Date(note.createdAt).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
       </div>
     </div>
   );

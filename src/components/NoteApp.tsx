@@ -1,8 +1,13 @@
+import { SortByType } from "../types/SortBy";
 import AddNewNote from "./AddNewNote";
-import NoteStatus from "./NoteStatus";
 import NotesList from "./NotesList";
+import NoteStatus from "./NoteStatus";
 
-function NoteApp({ sortBy }) {
+type NoteAppProps = {
+  sortBy: SortByType;
+};
+
+function NoteApp({ sortBy }: NoteAppProps) {
   return (
     <div className="note-app">
       <AddNewNote />

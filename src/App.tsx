@@ -1,12 +1,13 @@
 import "./App.css";
 import { useState } from "react";
+import AppProviders from "./providers/AppProviders";
 import NoteHeader from "./components/NoteHeader";
 import NoteApp from "./components/NoteApp";
-import AppProviders from "./providers/AppProviders";
+import { SortByType } from "./types/SortBy";
 
 function App() {
   // const [notes, setNotes] = useState([]);
-  const [sortBy, setSortBy] = useState("latest");
+  const [sortBy, setSortBy] = useState<SortByType>("latest");
 
   // const handleAddNote = (newNote) => {
   //   setNotes((prevNotes) => [...prevNotes, newNote]);
@@ -33,7 +34,7 @@ function App() {
   return (
     <AppProviders>
       <div className="container">
-        <NoteHeader sortBy={sortBy} onSort={(e) => setSortBy(e.target.value)} />
+        <NoteHeader sortBy={sortBy} onSort={(value) => setSortBy(value)} />
         <NoteApp sortBy={sortBy} />
       </div>
     </AppProviders>

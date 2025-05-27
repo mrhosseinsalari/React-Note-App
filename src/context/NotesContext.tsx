@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 import { Note } from "../types/Note";
 
 type Action =
@@ -26,8 +32,18 @@ function notesReducer(notes: Note[], { type, payload }: Action) {
   }
 }
 
+const initialState: Note[] = [];
+const localStorageKey = "notes";
+
 export function NotesProvider({ children }: { children: ReactNode }) {
-  const [notes, dispatch] = useReducer(notesReducer, []);
+  const [notes, dispatch] = useReducer(notesReducer, initialState, () => {
+    const storedValue = localStorage.getItem(localStorageKey);
+    return storedValue ? JSON.parse(storedValue) : initialState;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(notes));
+  }, [notes, localStorageKey]);
 
   return (
     <NotesContext.Provider value={notes}>
